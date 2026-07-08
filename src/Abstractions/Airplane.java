@@ -30,7 +30,7 @@ public class Airplane extends Drawable {
             api.SetColor(outlineColor);
             api.DrawCircle(x,y,AIRPLANE_RADIUS);
             api.SetColor(UIConsts.TextColor);
-            System.out.println("Drawing airplane");
+            //System.out.println("Drawing airplane");
 
         }catch (SingletonNotInitialized e){
             System.out.println("Singleton not init");

@@ -58,6 +58,11 @@ public class Airport extends Drawable implements Tickable {
     }
 
     @Override
+    public int getTickRate() {
+        return 1;
+    }
+
+    @Override
     public String toString(){
         return "Airport: " +name+" ID: "+ id;
     }
@@ -66,6 +71,9 @@ public class Airport extends Drawable implements Tickable {
     @Override
     public void draw() {
         try {
+            if(selected) {
+                System.out.println("Drawing airport");
+            }
             DrawAPIAWT api = DrawAPIAWT.getInstance();
             Color fillColor = blink?UIConsts.BlinkColor:UIConsts.AirportColor;
             Color outlineColor = UIConsts.AirportOutlineColor;

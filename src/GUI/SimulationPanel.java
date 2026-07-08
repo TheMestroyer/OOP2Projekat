@@ -6,11 +6,12 @@ import Abstractions.SimClock;
 import Abstractions.SimData;
 import Helpers.CoordHelpers;
 
+import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class SimulationPanel extends Panel {
+public class SimulationPanel extends JPanel {
     private SimData simData;
     public SimulationPanel(){
         addMouseListener(new MouseAdapter() {
@@ -21,15 +22,14 @@ public class SimulationPanel extends Panel {
         });
         simData = SimData.GetInstance();
         setSize(new Dimension(360,180));
+        setBackground(UIConsts.BackgroundColor1);
         SimClock.GetInstance().SetOnTick(this::repaint);
-        for(Flight f: simData.GetFlights()){
-            f.StartFlight();
-        }
     }
     @Override
-    public void paint(Graphics g) {
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         DrawAPIAWT api = DrawAPIAWT.getInstance();
-        DrawAPIAWT.init(this.getGraphics());
+        DrawAPIAWT.init(g);
         api.TranslateRoot(180,90);
         for(Airport a: simData.GetAirports()){
             a.draw();
@@ -52,6 +52,5 @@ public class SimulationPanel extends Panel {
                 a.deselect();
             }
         }
-        repaint();
     }
 }

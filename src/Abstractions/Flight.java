@@ -30,6 +30,10 @@ public class Flight extends Drawable implements Tickable {
         EndFlight();
     }
 
+    public int GetStartTime(){
+        return startTime;
+    }
+
     public void StartFlight(){
         active = true;
         SimClock.GetInstance().register(this);
@@ -77,6 +81,11 @@ public class Flight extends Drawable implements Tickable {
         if(active){
             UpdatePos();
         }
+    }
+
+    @Override
+    public int getTickRate() {
+        return 5;
     }
 
     @Override

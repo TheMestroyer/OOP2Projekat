@@ -1,15 +1,11 @@
 package GUI;
 
-import Abstractions.Airport;
-import Abstractions.Flight;
-import Abstractions.SimData;
-import Helpers.TimeSetter;
+import Abstractions.*;
+import Helpers.TimeTracker;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class App extends Frame {
     private InspectorPanel inspectorPanel;
@@ -21,6 +17,9 @@ public class App extends Frame {
         SimData sd = SimData.GetInstance();
         System.out.println("a");
 
+        SimClock.Init();
+        TimeTracker.Init();
+
         sd.addAirport(new Airport("aaa","dds",59,50));
         sd.addAirport(new Airport("aba","dda",100,100));
         sd.addAirport(new Airport("abad","ddah",180,-80));
@@ -28,17 +27,24 @@ public class App extends Frame {
 
 
         sd.addFlight(new Flight(sd.GetAirports().get(0),sd.GetAirports().get(1),10,10));
-        sd.addFlight(new Flight(sd.GetAirports().get(2),sd.GetAirports().get(3),10,5));
+        sd.addFlight(new Flight(sd.GetAirports().get(2),sd.GetAirports().get(3),50,5));
 
         simPanel = new SimulationPanel();
         simPanel.setVisible(true);
         inspectorPanel = new InspectorPanel(simPanel::repaint);
         inspectorPanel.setVisible(true);
+        StartSim();
     }
+
+    private void StartSim(){
+        FlightManager fm = FlightManager.GetInstance();
+        TimeTracker.GetInstance().Start();
+    }
+
     @Override
     public void paint(Graphics g) {
         DrawAPIAWT.init(g);
-        simPanel.repaint();
+        //simPanel.repaint();
     }
 
     private void SetupLayout(){
@@ -72,8 +78,5 @@ public class App extends Frame {
         SetupLayout();
         System.out.println("bbbb");
         setVisible(true);
-
-//        TimeSetter ts = new TimeSetter(this);
-//        ts.start();
     }
 }
