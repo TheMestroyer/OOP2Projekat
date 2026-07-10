@@ -1,0 +1,38 @@
+{
+"airports":[
+{"code":"NWC","name":"Northwest Corner","x":-180,"y":90},
+{"code":"NEC","name":"Northeast Corner","x":180,"y":90},
+{"code":"SWC","name":"Southwest Corner","x":-180,"y":-90},
+{"code":"SEC","name":"Southeast Corner","x":180,"y":-90},
+{"code":"CTR","name":"Center Point","x":0,"y":0},
+{"code":"NOR","name":"North Edge","x":0,"y":90},
+{"code":"SOU","name":"South Edge","x":0,"y":-90},
+{"code":"WST","name":"West Edge","x":-180,"y":0},
+{"code":"EST","name":"East Edge","x":180,"y":0},
+{"code":"NWQ","name":"Northwest Quadrant","x":-90,"y":45},
+{"code":"NEQ","name":"Northeast Quadrant","x":90,"y":45},
+{"code":"SWQ","name":"Southwest Quadrant","x":-90,"y":-45},
+{"code":"SEQ","name":"Southeast Quadrant","x":90,"y":-45}
+],
+"flights":[
+{"from":"NWC","to":"SEC","departure":"00:00","duration":300},
+{"from":"NWC","to":"NEC","departure":"00:00","duration":200},
+{"from":"NWC","to":"CTR","departure":"00:00","duration":150},
+{"from":"NWC","to":"SWC","departure":"00:05","duration":220},
+{"from":"SEC","to":"NWC","departure":"08:00","duration":300},
+{"from":"NEC","to":"SWC","departure":"00:10","duration":280},
+{"from":"SWC","to":"NEC","departure":"09:00","duration":280},
+{"from":"CTR","to":"NWC","departure":"00:30","duration":150},
+{"from":"CTR","to":"NEC","departure":"01:00","duration":150},
+{"from":"CTR","to":"SWC","departure":"01:30","duration":150},
+{"from":"CTR","to":"SEC","departure":"02:00","duration":150},
+{"from":"NOR","to":"SOU","departure":"02:30","duration":200},
+{"from":"SOU","to":"NOR","departure":"10:00","duration":200},
+{"from":"WST","to":"EST","departure":"03:00","duration":250},
+{"from":"EST","to":"WST","departure":"11:00","duration":250},
+{"from":"NWQ","to":"SEQ","departure":"04:00","duration":180},
+{"from":"NEQ","to":"SWQ","departure":"04:10","duration":180},
+{"from":"SWQ","to":"NEQ","departure":"12:00","duration":180},
+{"from":"SEQ","to":"NWQ","departure":"12:10","duration":180}
+]
+}

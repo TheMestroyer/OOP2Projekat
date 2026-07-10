@@ -27,6 +27,13 @@ public class TimeTracker implements Tickable {
     public void Stop(){
         active = false;
     }
+    public boolean IsActive(){
+        return active;
+    }
+    public void Reset(){
+        active = false;
+        currentTime = 0;
+    }
 
     public int GetCurrentTime(){
         return currentTime;

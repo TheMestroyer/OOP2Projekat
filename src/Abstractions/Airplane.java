@@ -23,12 +23,13 @@ public class Airplane extends Drawable {
         try {
             if(!active)return;
             DrawAPIAWT api = DrawAPIAWT.getInstance();
+            int[] screen = api.MapPoint(x,y,AIRPLANE_RADIUS,AIRPLANE_RADIUS);
             Color fillColor = UIConsts.AirplaneColor;
             Color outlineColor = UIConsts.AirplaneOutlineColor;
             api.SetColor(fillColor);
-            api.FillCircle(x,y,AIRPLANE_RADIUS);
+            api.FillCircle(screen[0],screen[1],AIRPLANE_RADIUS);
             api.SetColor(outlineColor);
-            api.DrawCircle(x,y,AIRPLANE_RADIUS);
+            api.DrawCircle(screen[0],screen[1],AIRPLANE_RADIUS);
             api.SetColor(UIConsts.TextColor);
             //System.out.println("Drawing airplane");
 

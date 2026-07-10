@@ -1,0 +1,15 @@
+{
+"airports":[
+{"code":"AAA","name":"Airport1","x":-180,"y":-90},
+{"code":"BBB","name":"Airport2","x":0,"y":0},
+{"code":"CCC","name":"Airport3","x":-150,"y":-20},
+{"code":"DDD","name":"Airport4","x":100,"y":-50},
+{"code":"EEE","name":"Airport5","x":50,"y":50}
+],
+"flights":[
+{"from":"AAA","to":"BBB","departure":"00:10","duration":50},
+{"from":"AAA","to":"BBB","departure":"00:10","duration":70},
+{"from":"AAA","to":"CCC","departure":"01:20","duration":80},
+{"from":"EEE","to":"DDD","departure":"02:30","duration":50}
+]
+}

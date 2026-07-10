@@ -20,7 +20,7 @@ public class SimClock {
     }
     private final List<Tickable> tickables = new CopyOnWriteArrayList<>();
     private final Map<Tickable,Integer> counters = new ConcurrentHashMap<>();
-    private Runnable onTick;
+    private final List<Runnable> onTickListeners = new CopyOnWriteArrayList<>();
 
     private SimClock(){
         Timer clockTimer = new Timer(tickPeriod, e -> {
@@ -31,7 +31,7 @@ public class SimClock {
                     counters.put(t, 0);
                 }
             }
-            if (onTick != null) onTick.run();
+            for (Runnable r : onTickListeners) r.run();
         });
         clockTimer.start();
     }
@@ -47,7 +47,7 @@ public class SimClock {
 
 
     public void SetOnTick(Runnable callback){
-        onTick = callback;
+        onTickListeners.add(callback);
     }
 
 }

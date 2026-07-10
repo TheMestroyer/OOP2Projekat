@@ -4,7 +4,7 @@ import Abstractions.Airport;
 import Abstractions.Flight;
 import Abstractions.SimClock;
 import Abstractions.SimData;
-import Helpers.CoordHelpers;
+import Errors.SingletonNotInitialized;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -16,21 +16,19 @@ public class SimulationPanel extends JPanel {
     public SimulationPanel(){
         addMouseListener(new MouseAdapter() {
             @Override public void mouseClicked(MouseEvent e) {
-                int[] newCoords = CoordHelpers.SimPanelShift(e.getX(), e.getY());
-                handleClick(newCoords[0],newCoords[1]);
+                handleClick(e.getX(), e.getY());
             }
         });
         simData = SimData.GetInstance();
-        setSize(new Dimension(360,180));
-        setBackground(UIConsts.BackgroundColor1);
+        setBackground(UIConsts.BackgroundColor2);
         SimClock.GetInstance().SetOnTick(this::repaint);
     }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        DrawAPIAWT api = DrawAPIAWT.getInstance();
         DrawAPIAWT.init(g);
-        api.TranslateRoot(180,90);
+        DrawAPIAWT api = DrawAPIAWT.getInstance();
+        api.SetMapSize(getWidth(), getHeight());
         for(Airport a: simData.GetAirports()){
             a.draw();
         }
@@ -39,18 +37,32 @@ public class SimulationPanel extends JPanel {
         }
 
     }
-    private void handleClick(int px, int py) {
-        System.out.println("Clickerd on:"+px+"m"+py);
-        System.out.println("Panel offset:"+this.getX()+"m"+this.getY());
-        for (Airport a : simData.GetAirports()) {
-            if(a.getX()<=px&&a.getX()+Airport.DRAW_WIDTH>=px
-            && a.getY()<=py&&a.getY()+Airport.DRAW_HEIGHT>=py){
-                a.select();
+
+    private void handleClick(int screenX, int screenY) {
+        try {
+            DrawAPIAWT api = DrawAPIAWT.getInstance();
+            api.SetMapSize(getWidth(), getHeight());
+
+            Airport hit = null;
+            for (Airport a : simData.GetAirports()) {
+                int[] pos = api.MapPoint(a.getX(), a.getY(), Airport.DRAW_WIDTH, Airport.DRAW_HEIGHT);
+                if(pos[0]<=screenX && pos[0]+Airport.DRAW_WIDTH>=screenX
+                && pos[1]<=screenY && pos[1]+Airport.DRAW_HEIGHT>=screenY){
+                    hit = a;
+                    break;
+                }
             }
-            else{
-                System.out.println("Clicked off airport: "+a.toString());
-                a.deselect();
+
+            boolean deselecting = hit!=null && hit.getSelected();
+            for (Airport a : simData.GetAirports()) {
+                if(a!=hit) a.deselect();
             }
+            if(hit!=null){
+                if(deselecting) hit.deselect();
+                else hit.select();
+            }
+        } catch (SingletonNotInitialized e) {
+            System.out.println("Singleton not init");
         }
     }
 }

@@ -1,12 +1,14 @@
 package GUI;
 
 import Errors.SingletonNotInitialized;
+import Helpers.CoordHelpers;
 
 import java.awt.*;
 
 public class DrawAPIAWT {
 
     private Graphics myGraphics;
+    private int mapWidth, mapHeight;
     private static DrawAPIAWT inst = null;
 
     private DrawAPIAWT(Graphics g){
@@ -46,5 +48,21 @@ public class DrawAPIAWT {
         myGraphics.fillOval(x-radius/2,y-radius/2,radius,radius);
     }
     public void DrawText(int x, int y, String text){myGraphics.drawString(text,x,y);}
-    public void TranslateRoot(int x,int y){myGraphics.translate(x,y);}
+
+    public void SetMapSize(int width, int height){
+        mapWidth = width;
+        mapHeight = height;
+    }
+    public int GetMapWidth(){
+        return mapWidth;
+    }
+    public int GetMapHeight(){
+        return mapHeight;
+    }
+    public int[] MapPoint(int domainX, int domainY, int iconWidth, int iconHeight){
+        return CoordHelpers.DomainToScreen(domainX, domainY, mapWidth, mapHeight, iconWidth, iconHeight);
+    }
+    public int TextWidth(String text){
+        return myGraphics.getFontMetrics().stringWidth(text);
+    }
 }

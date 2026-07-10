@@ -24,6 +24,7 @@ public class Airport extends Drawable implements Tickable {
         this.x = x;
         this.y = y;
         selected = false;
+        SetVisible(true);
     }
 
     //Getters and setters
@@ -71,18 +72,24 @@ public class Airport extends Drawable implements Tickable {
     @Override
     public void draw() {
         try {
-            if(selected) {
-                System.out.println("Drawing airport");
-            }
+            if(!GetVisible())return;
             DrawAPIAWT api = DrawAPIAWT.getInstance();
+            int[] screen = api.MapPoint(x,y,DRAW_WIDTH,DRAW_HEIGHT);
+            int sx = screen[0], sy = screen[1];
             Color fillColor = blink?UIConsts.BlinkColor:UIConsts.AirportColor;
             Color outlineColor = UIConsts.AirportOutlineColor;
             api.SetColor(fillColor);
-            api.FillRectangle(x,y,DRAW_WIDTH,DRAW_HEIGHT);
+            api.FillRectangle(sx,sy,DRAW_WIDTH,DRAW_HEIGHT);
             api.SetColor(outlineColor);
-            api.DrawRectangle(x,y,DRAW_WIDTH,DRAW_HEIGHT);
+            api.DrawRectangle(sx,sy,DRAW_WIDTH,DRAW_HEIGHT);
             api.SetColor(UIConsts.TextColor);
-            api.DrawText(x+DRAW_WIDTH+5,y,id+": "+name);
+
+            String label = id+": "+name;
+            int textX = sx+DRAW_WIDTH+TEXT_PADDING;
+            int textWidth = api.TextWidth(label);
+            if(textX+textWidth > api.GetMapWidth())
+                textX = api.GetMapWidth()-textWidth;
+            api.DrawText(textX,sy,label);
             //System.out.println("Drawing airport");
 
         }catch (SingletonNotInitialized e){

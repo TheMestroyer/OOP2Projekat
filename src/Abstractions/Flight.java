@@ -1,83 +1,79 @@
 package Abstractions;
 
-import Errors.SingletonNotInitialized;
-import GUI.DrawAPIAWT;
 import GUI.Drawable;
-import GUI.UIConsts;
-import Helpers.CoordHelpers;
-
-import java.awt.*;
+import Helpers.TimeTracker;
 
 public class Flight extends Drawable implements Tickable {
     private final Airport startAirport,destinationAirport;
     private final int duration;
     private final int startTime;
     private boolean active;
+    private boolean launched;
     private Airplane airplane;
     private int currentX, currentY;
-    private int directionX, directionY;//-1 left/up, 0 neutral, +1 right/down
+
     public Flight(Airport startAirport, Airport destinationAirport, int startTime, int duration){
         this.startAirport = startAirport;
         this.destinationAirport = destinationAirport;
-        this. startTime = startTime;
+        this.startTime = startTime;
         this.duration = duration;
 
-        directionX = startAirport.getX()>=destinationAirport.getX()?-1:1;
-        directionY = startAirport.getY()>=destinationAirport.getY()?-1:1;
-        if(startAirport.getX()==destinationAirport.getX())directionX = 0;
-        if(startAirport.getY()==destinationAirport.getY())directionY = 0;
-
-        EndFlight();
+        resetFlight();
     }
 
     public int GetStartTime(){
         return startTime;
     }
+    public int GetDuration(){
+        return duration;
+    }
+    public Airport GetStartAirport(){
+        return startAirport;
+    }
+    public Airport GetDestinationAirport(){
+        return destinationAirport;
+    }
+    public boolean IsLaunched(){
+        return launched;
+    }
 
     public void StartFlight(){
         active = true;
+        launched = true;
         SimClock.GetInstance().register(this);
-        System.out.println("registered tick on flight");
     }
     private void EndFlight(){
         active = false;
-        currentX = startAirport.getX()+Airport.DRAW_WIDTH/2;
-        currentY = startAirport.getY()+Airport.DRAW_HEIGHT/2;
         SimClock.GetInstance().unregister(this);
-        System.out.println("unregistered tick on flight");
     }
 
-    private boolean HasReachedEnd(){
-        if(directionX!=0&& (directionX*currentX<directionX *(destinationAirport.getX()+Airport.DRAW_WIDTH/2))){
-            return false;
-        }
-        if(directionY!=0&& (directionY*currentY<directionY *(destinationAirport.getY()+Airport.DRAW_HEIGHT/2))){
-            return false;
-        }
-        return true;
+    public void resetFlight(){
+        active = false;
+        launched = false;
+        currentX = startAirport.getX();
+        currentY = startAirport.getY();
+        SimClock.GetInstance().unregister(this);
     }
 
-    private int[]  NextCoords(){
-        int distanceX = directionX*CoordHelpers.CalculateStraightDistance(startAirport.getX(), destinationAirport.getX());
-        int distanceY = directionY*CoordHelpers.CalculateStraightDistance(startAirport.getY(), destinationAirport.getY());
-        int stepX = distanceX/duration;
-        int stepY = distanceY/duration;
-        int nextX = currentX+stepX;
-        int nextY = currentY+stepY;
-        return new int[]{nextX,nextY};
+    private double Progress(){
+        int elapsed = TimeTracker.GetInstance().GetCurrentTime()-startTime;
+        double fraction = (double)elapsed/duration;
+        if(fraction<0)return 0;
+        if(fraction>1)return 1;
+        return fraction;
     }
 
     private void UpdatePos(){
-        int[] newCoords = NextCoords();
-        currentX = newCoords[0];
-        currentY = newCoords[1];
-        if(HasReachedEnd()){
+        double fraction = Progress();
+        currentX = startAirport.getX()+(int)Math.round((destinationAirport.getX()-startAirport.getX())*fraction);
+        currentY = startAirport.getY()+(int)Math.round((destinationAirport.getY()-startAirport.getY())*fraction);
+        if(fraction>=1){
             EndFlight();
         }
     }
+
     @Override
     public void onTick() {
-        System.out.println("Called tick on flight");
         if(active){
             UpdatePos();
         }
@@ -85,7 +81,7 @@ public class Flight extends Drawable implements Tickable {
 
     @Override
     public int getTickRate() {
-        return 5;
+        return 1;
     }
 
     @Override

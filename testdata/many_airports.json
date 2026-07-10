@@ -1,0 +1,276 @@
+{
+"airports": [
+{
+"code": "AAA",
+"name": "Test Airport 1",
+"x": -150,
+"y": -70
+},
+{
+"code": "AAB",
+"name": "Test Airport 2",
+"x": -90,
+"y": -70
+},
+{
+"code": "AAC",
+"name": "Test Airport 3",
+"x": -30,
+"y": -70
+},
+{
+"code": "AAD",
+"name": "Test Airport 4",
+"x": 30,
+"y": -70
+},
+{
+"code": "AAE",
+"name": "Test Airport 5",
+"x": 90,
+"y": -70
+},
+{
+"code": "AAF",
+"name": "Test Airport 6",
+"x": 150,
+"y": -70
+},
+{
+"code": "AAG",
+"name": "Test Airport 7",
+"x": -150,
+"y": -35
+},
+{
+"code": "AAH",
+"name": "Test Airport 8",
+"x": -90,
+"y": -35
+},
+{
+"code": "AAI",
+"name": "Test Airport 9",
+"x": -30,
+"y": -35
+},
+{
+"code": "AAJ",
+"name": "Test Airport 10",
+"x": 30,
+"y": -35
+},
+{
+"code": "AAK",
+"name": "Test Airport 11",
+"x": 90,
+"y": -35
+},
+{
+"code": "AAL",
+"name": "Test Airport 12",
+"x": 150,
+"y": -35
+},
+{
+"code": "AAM",
+"name": "Test Airport 13",
+"x": -150,
+"y": 0
+},
+{
+"code": "AAN",
+"name": "Test Airport 14",
+"x": -90,
+"y": 0
+},
+{
+"code": "AAO",
+"name": "Test Airport 15",
+"x": -30,
+"y": 0
+},
+{
+"code": "AAP",
+"name": "Test Airport 16",
+"x": 30,
+"y": 0
+},
+{
+"code": "AAQ",
+"name": "Test Airport 17",
+"x": 90,
+"y": 0
+},
+{
+"code": "AAR",
+"name": "Test Airport 18",
+"x": 150,
+"y": 0
+},
+{
+"code": "AAS",
+"name": "Test Airport 19",
+"x": -150,
+"y": 35
+},
+{
+"code": "AAT",
+"name": "Test Airport 20",
+"x": -90,
+"y": 35
+},
+{
+"code": "AAU",
+"name": "Test Airport 21",
+"x": -30,
+"y": 35
+},
+{
+"code": "AAV",
+"name": "Test Airport 22",
+"x": 30,
+"y": 35
+},
+{
+"code": "AAW",
+"name": "Test Airport 23",
+"x": 90,
+"y": 35
+},
+{
+"code": "AAX",
+"name": "Test Airport 24",
+"x": 150,
+"y": 35
+},
+{
+"code": "AAY",
+"name": "Test Airport 25",
+"x": -150,
+"y": 70
+},
+{
+"code": "AAZ",
+"name": "Test Airport 26",
+"x": -90,
+"y": 70
+},
+{
+"code": "ABA",
+"name": "Test Airport 27",
+"x": -30,
+"y": 70
+},
+{
+"code": "ABB",
+"name": "Test Airport 28",
+"x": 30,
+"y": 70
+},
+{
+"code": "ABC",
+"name": "Test Airport 29",
+"x": 90,
+"y": 70
+},
+{
+"code": "ABD",
+"name": "Test Airport 30",
+"x": 150,
+"y": 70
+}
+],
+"flights": [
+{
+"from": "AAA",
+"to": "AAB",
+"departure": "00:00",
+"duration": 120
+},
+{
+"from": "AAC",
+"to": "AAD",
+"departure": "01:00",
+"duration": 130
+},
+{
+"from": "AAE",
+"to": "AAF",
+"departure": "02:00",
+"duration": 140
+},
+{
+"from": "AAG",
+"to": "AAH",
+"departure": "03:00",
+"duration": 150
+},
+{
+"from": "AAI",
+"to": "AAJ",
+"departure": "04:00",
+"duration": 160
+},
+{
+"from": "AAK",
+"to": "AAL",
+"departure": "05:00",
+"duration": 170
+},
+{
+"from": "AAM",
+"to": "AAN",
+"departure": "06:00",
+"duration": 180
+},
+{
+"from": "AAO",
+"to": "AAP",
+"departure": "07:00",
+"duration": 190
+},
+{
+"from": "AAQ",
+"to": "AAR",
+"departure": "08:00",
+"duration": 200
+},
+{
+"from": "AAS",
+"to": "AAT",
+"departure": "09:00",
+"duration": 210
+},
+{
+"from": "AAU",
+"to": "AAV",
+"departure": "10:00",
+"duration": 220
+},
+{
+"from": "AAW",
+"to": "AAX",
+"departure": "11:00",
+"duration": 230
+},
+{
+"from": "AAY",
+"to": "AAZ",
+"departure": "12:00",
+"duration": 240
+},
+{
+"from": "ABA",
+"to": "ABB",
+"departure": "13:00",
+"duration": 250
+},
+{
+"from": "ABC",
+"to": "ABD",
+"departure": "14:00",
+"duration": 260
+}
+]
+}
